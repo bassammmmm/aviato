@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<section class="user-dashboard page-wrapper">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<ul class="list-inline dashboard-menu text-center">
+                    <li><a class="active" href="{%url 'dashboard'%}">Dashboard</a></li>
+                    <li><a href="{%url 'orders'%}">Orders</a></li>
+                    <li><a  href="{%url 'address'%}">Addresses</a></li>
+                    <li><a href="{%url 'userprofile'%}">Profile Details</a></li>
+				</ul>
+				<div class="dashboard-wrapper user-dashboard">
+					<div class="media">
+						<div class="pull-left">
+							<img class="media-object user-img" src="{{profile.image.url}}" alt="Image">
+						</div>
+						<div class="media-body">
+							<h2 class="media-heading">Welcome {{profile.first_name}} {{profile.last_name}}</h2>
+
+						</div>
+					</div>
+                    
+                    {% if orders %}
+                    <div class="total-order mt-20">
+						<h4>Total Orders Completed</h4>
+						<div class="table-responsive">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>Order ID</th>
+										<th>Date</th>
+										<th>Total Price</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+                                    
+                                    {% for order in orders %}
+                                    <tr>
+										<td><a href="#!">#{{order.id}}</a></td>
+										<td>{{order.updated_at}}</td>
+										<td>${{order.total_price}}</td>
+									</tr>
+                                    {% endfor %}
+                                        
+
+
+								</tbody>
+							</table>
+						</div>
+					</div>
+                    {% else %}
+                    <h2>You got no orders completed yet.</h2>
+                    {% endif %}
+                        
+
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock content %}

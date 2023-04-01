@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<section class="page-header">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="content">
+					<h1 class="page-name">Dashboard</h1>
+					<ol class="breadcrumb">
+						<li><a href="{%url 'home'%}">Home</a></li>
+						<li class="active">My Account</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="user-dashboard page-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="list-inline dashboard-menu text-center">
+          <li><a href="{%url 'dashboard'%}">Dashboard</a></li>
+          <li><a href="{%url 'orders'%}">Orders</a></li>  
+          <li><a href="{%url 'address'%}">Addresses</a></li>
+          <li><a class="active"  href="{%url 'userprofile'%}">Profile Details</a></li>
+        </ul>
+        <div class="dashboard-wrapper dashboard-user-profile">
+          <div class="media">
+            <div class="pull-left text-center" href="#!">
+              <img class="media-object user-img" src="{{current_profile.image.url}}" alt="Image">
+
+
+
+
+
+            </div>
+            <div class="media-body">
+                <form method="POST" enctype="multipart/form-data">
+                  {% csrf_token %}
+                    <ul style="display: flex; flex-direction: column; align-items: left;" class="user-profile-list">
+                      {% include 'partials/messages.html' %}
+                        <!-- <li style="padding: 5px 0;"><span>Username:</span><input disabled="disabled" class="form-control" name = "username" type="text" value="{{values.user.username}}"></li>
+                        <li style="padding: 5px 0;"><span>Email:</span><input class="form-control" name = "email" type="email" value="{{values.user.email}}"></li> -->
+
+                        <li style="padding: 5px 0;"><span>Username:</span>{{form.username}}</li>
+                        <li style="padding: 5px 0;"><span>Email:</span>{{form.email}}</li>
+                        <li style="padding: 5px 0;"><span>Country:</span>{{form.country}}</li>
+                        <li style="padding: 5px 0;"><span>City:</span>{{form.city}}</li>
+                        <li style="padding: 5px 0;"><span>Phone: </span>{{form.phone}}</li><P>NOTE: Phone number must include the country code. EX: +20..</P>
+                        <li style="padding: 5px 0;"><span>Image:</span>{{form.image}}</li>
+                        <input  type="submit" class="btn btn-main text-center " value="Submit">
+                      </ul>
+
+                </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  </body>
+  </html>
+{% endblock content %}

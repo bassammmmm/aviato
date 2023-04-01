@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+	Shop
+{% endblock title %}
+{% block content %}
+<section class="page-header">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="content">
+					<h1 class="page-name">Shop</h1>
+					<ol class="breadcrumb">
+						<li><a href="{%url 'home'%}">Home</a></li>
+						<li class="active">Shop</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+<section class="products section">
+	
+	<div class="container">
+		<form action="{%url 'search'%}" method="POST">
+			{% csrf_token %}
+			<input name = 'search' class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
+		</form>
+		<br>
+		{% include 'partials/messages.html' %}
+		<div class="row">
+            {% for product in products %}
+            <div class="col-md-4">
+				<div class="product-item">
+					<div class="product-thumb">
+                        {% if product.sale == 'True' %}
+                            <span class="bage">Sale</span>
+                        {% endif %}
+						<img class="img-responsive" src="{{product.image.url}}" alt="product-img" />
+						<div class="preview-meta">
+							<ul>
+								<li>
+									<a href="{%url 'add_to_cart' product.id%}"><i class="tf-ion-android-cart"></i></a>
+								</li>
+							</ul>
+							
+                      	</div>
+						
+					</div>
+					<div class="product-content">
+						<h4><a href="{%url 'product' product.id%}">{{product.title}}</a></h4>
+						<p class="price">${{product.price}}</p>
+					</div>
+					
+				</div>
+
+			</div>
+            {% endfor %}
+
+						
+			
+
+
+		</div>
+	</div>
+</section>
+
+{% endblock  %}

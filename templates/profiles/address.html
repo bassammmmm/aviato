@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<section class="user-dashboard page-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <ul class="list-inline dashboard-menu text-center">
+            <li><a href="{%url 'dashboard'%}">Dashboard</a></li>
+            <li><a href="{%url 'orders'%}">Orders</a></li>
+            <li><a class="active" href="{%url 'address'%}">Addresses</a></li>
+            <li><a href="{%url 'userprofile'%}">Profile Details</a></li>
+          </ul>
+          <div class="dashboard-wrapper user-dashboard">
+            <div class="table-responsive">
+              <table class="table">
+                {% include 'partials/messages.html' %}
+                <thead>
+                  <tr>
+                    <th>Company</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Country</th>
+                    <th class="col-md-2 col-sm-3">Phone</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                    
+                    {% for address in addresses %}
+                    <tr>
+                        <td>{{address.company}}</td>
+                        <td>{{address.user.full_name}}</td>
+                        <td>{{address.address}}</td>
+                        <td>{{address.country}}</td>
+                        <td>{{address.phone}}</td>
+                        <td>
+                          <div class="btn-group" role="group">
+                            <a class="btn btn-default" href="{%url 'edit_address' address.id%}"><i class="tf-ion-edit" aria-hidden="true"></a></i>
+                            <a class="btn btn-default" href="{%url 'delete_address' address.id%}"><i class="tf-ion-close" aria-hidden="true"></a></i>
+                          </div>
+                        </td>
+
+                      </tr>
+                    {% endfor %}
+                    <td class="li"><a href="{%url 'add_address'%}" class="btn btn-main btn-small btn-round">Add an address</a></td>
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock content %}

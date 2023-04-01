@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<section class="user-dashboard page-wrapper">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<ul class="list-inline dashboard-menu text-center">
+					<li><a href="{%url 'dashboard'%}">Dashboard</a></li>
+					<li><a class="active" href="{%url 'orders'%}">Orders</a></li>
+					<li><a href="{%url 'address'%}">Address</a></li>
+					<li><a href="{%url 'userprofile'%}">Profile Details</a></li>
+				</ul>
+				<div class="dashboard-wrapper user-dashboard">
+					<div class="table-responsive">
+						{% if orders %}
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Order ID</th>
+									<th>Date</th>
+									<th>Total Price</th>
+									<th>Status</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+                                    {% for order in orders %}
+                                    <tr>
+                                        <td>#{{order.id}}</td>
+                                        <td>{{order.created_at}}</td>
+                                        <td>${{order.total_price}}</td>
+                                        {% if order.status == 'Processing' %}
+                                        <td><span class="label label-primary">{{order.status}}</span></td>
+
+                                        {% elif order.status == 'On Hold' %}
+                                        <td><span class="label label-info">{{order.status}}</span></td>
+
+                                        {% elif order.status == 'Completed' %}
+                                        <td><span class="label label-success">{{order.status}}</span></td>
+
+                                        {% elif order.status == 'Canceled' %}
+                                        <td><span class="label label-danger">{{order.status}}</span></td>
+
+                                        {% elif order.status == 'Pending' %}
+                                        <td><span class="label label-warning">{{order.status}}</span></td>
+
+                                        {% endif %}
+
+                                    </tr>
+                                    {% endfor %}
+
+							</tbody>
+						</table>
+						{% else %}
+						<h2>You have made no orders yet. We are waiting for your first order!</h2>
+						{% endif %}
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock content %}
